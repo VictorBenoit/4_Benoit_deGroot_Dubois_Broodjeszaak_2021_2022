@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Broodjeszaak {
+public class    Broodjeszaak {
     private List<Broodje> data1;
     private List<Beleg> data2;
 
