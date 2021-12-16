@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class TekstLoadSaveTemplate<K,V> {
+
     public final Map<K,V> load(File file) throws IOException {
         Map<K,V> returnMap = new HashMap<K,V>();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))){

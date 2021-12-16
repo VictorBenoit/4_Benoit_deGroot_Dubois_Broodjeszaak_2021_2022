@@ -1,9 +1,6 @@
-//Brinio: de pane voor het overview van alle broodjes en beleggen die beschikbaar zijn
-
+//Brinio 2-12: de pane voor het overview van alle broodjes en beleggen die beschikbaar zijn
 
 package view.panels;
-
-
 import domain.Beleg;
 import domain.Broodje;
 import domain.Broodjeszaak;
@@ -22,21 +19,21 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-public class SandwichOverviewPane extends GridPane{
+public class SandwichOverviewPane extends GridPane {
 	private Broodjeszaak broodjeszaak;
 	private TableView<Broodje> table1;
 	private TableView<Beleg> table2;
 	private ObservableList<Broodje> broodjes;
 	private ObservableList<Beleg> beleggen;
 
-	
+
 	public SandwichOverviewPane(Broodjeszaak broodjeszaak) {
 		this.broodjeszaak = broodjeszaak;
 		this.setPadding(new Insets(5, 5, 5, 5));
-        this.setVgap(5);
-        this.setHgap(5);
+		this.setVgap(5);
+		this.setHgap(5);
 
-		//Brinio: tabel opgesteld voor de broodjes en de gegevens die in de arraylist broodjes zijn toegevoegd bij de klasse "Broodjeszaak" ingevuld in de tabel, grotendeels overgenomen van het voorbeeld Tableview_JavaFX_Movies
+		//Brinio 2-12: tabel opgesteld voor de broodjes en de gegevens die in de arraylist broodjes zijn toegevoegd bij de klasse "Broodjeszaak" ingevuld in de tabel, grotendeels overgenomen van het voorbeeld Tableview_JavaFX_Movies
 
 		Label label1 = new Label("Broodjes");
 		table1 = new TableView<Broodje>();
@@ -55,7 +52,7 @@ public class SandwichOverviewPane extends GridPane{
 		colSales1.setCellValueFactory(new PropertyValueFactory<Broodje, Integer>("sales"));
 		table1.getColumns().addAll(colName1, colPrice1, colAmount1, colSales1);
 
-		//Brinio: tabel opgesteld voor beleggen, hetzelfde eig als bij broodjes
+		//Brinio 2-12: tabel opgesteld voor beleggen, hetzelfde eig als bij broodjes
 
 		Label label2 = new Label("Beleggen");
 		table2 = new TableView<Beleg>();
@@ -74,16 +71,16 @@ public class SandwichOverviewPane extends GridPane{
 		colSales.setCellValueFactory(new PropertyValueFactory<Beleg, Integer>("sales"));
 		table2.getColumns().addAll(colName2, colPrice2, colAmount2, colSales);
 
-		//Brinio: hier wordt alles aan de tabel toegevoegd met nummers van een grid
+		//Brinio 2-12: hier wordt alles aan de tabel toegevoegd met nummers van een grid
 
 		this.add(label1, 0, 0);
 		this.add(table1, 0, 1);
 		this.add(label2, 0, 2);
-		this.add(table2, 0,3);
+		this.add(table2, 0, 3);
 
 	}
 
-	//Brinio: refresh codes om de Arraylisten in te vullen in de tabellen
+	//Brinio 2-12: refresh codes om de Arraylisten in te vullen in de tabellen
 
 	public void refresh1() {
 		broodjes = FXCollections.observableArrayList(broodjeszaak.getBroodjes());
@@ -91,9 +88,12 @@ public class SandwichOverviewPane extends GridPane{
 		table1.refresh();
 	}
 
-	public  void refresh2() {
-		beleggen = FXCollections.observableArrayList(broodjeszaak.getBeleggen());
+	public void refresh2() {
+		beleggen = FXCollections.observableArrayList(broodjeszaak.getBeleg());
 		table2.setItems(beleggen);
 		table2.refresh();
 	}
 }
+
+
+

@@ -1,6 +1,7 @@
-//Brinio: klasse beleg voor het aanmaken van een beleg en de nodige informatie op te vragen, setters en getters zijn toegevoegd
-
 package domain;
+
+//Brinio 2-12: klasse beleg voor het aanmaken van een beleg en de nodige informatie op te vragen, setters en getters zijn toegevoegd
+
 
 public class Beleg {
 

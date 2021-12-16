@@ -1,4 +1,4 @@
-//Brinio: klasse broodje voor het aanmaken van een broodje en de nodige informatie op te vragen, setters en getters zijn toegevoegd
+//Brinio 2-12: klasse broodje voor het aanmaken van een broodje en de nodige informatie op te vragen, setters en getters zijn toegevoegd
 
 
 package domain;
