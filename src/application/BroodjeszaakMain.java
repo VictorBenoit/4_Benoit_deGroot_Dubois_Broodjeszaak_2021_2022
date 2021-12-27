@@ -17,7 +17,7 @@ public class BroodjeszaakMain extends Application {
 		Broodje broodje = new Broodje("bruin", 5.0, 10, 0);
 		Beleg beleg = new Beleg("spek", 0.50, 10, 0);
 		AdminView adminView = new AdminView(broodjeszaak);
-		OrderView orderView = new OrderView();
+		OrderView orderView = new OrderView(broodjeszaak);
 		KitchenView kitchenView = new KitchenView();
 	}
 
