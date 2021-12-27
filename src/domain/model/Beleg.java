@@ -1,4 +1,4 @@
-package domain;
+package domain.model;
 
 //Brinio 2-12: klasse beleg voor het aanmaken van een beleg en de nodige informatie op te vragen, setters en getters zijn toegevoegd
 

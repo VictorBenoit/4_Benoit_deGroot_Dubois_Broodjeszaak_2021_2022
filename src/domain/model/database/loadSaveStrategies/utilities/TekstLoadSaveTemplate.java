@@ -1,11 +1,5 @@
-package domain.loadSaveStrategies;
+package domain.model.database.loadSaveStrategies.utilities;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,7 +9,7 @@ import java.util.Map;
 
 public abstract class TekstLoadSaveTemplate<K,V> {
 
-    String[] tokens = new String[4];
+    protected String[] tokens = new String[4];
 
 
     public Map<K,V> load(File file) throws IOException {

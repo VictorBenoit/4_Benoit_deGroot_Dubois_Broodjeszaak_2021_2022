@@ -1,6 +1,4 @@
-package domain.loadSaveStrategies;
-
-import domain.Broodje;
+package domain.model.database.loadSaveStrategies;
 
 import java.io.IOException;
 import java.util.Map;

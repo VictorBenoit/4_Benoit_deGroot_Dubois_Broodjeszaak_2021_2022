@@ -1,4 +1,4 @@
-package domain.loadSaveStrategies.factory;
+package domain.model.database.loadSaveStrategies.factory;
 
 public enum LoadSaveStrategyEnum {
 
@@ -15,5 +15,5 @@ public enum LoadSaveStrategyEnum {
     }
 
     public String getKlasseNaam() {
-        return "domain.loadSaveStrategies." + klasseNaam; }
+        return "domain.model.database.loadSaveStrategies." + klasseNaam; }
 }

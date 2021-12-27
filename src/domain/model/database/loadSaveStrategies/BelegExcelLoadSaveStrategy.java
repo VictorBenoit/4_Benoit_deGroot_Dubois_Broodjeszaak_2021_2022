@@ -1,6 +1,7 @@
-package domain.loadSaveStrategies;
+package domain.model.database.loadSaveStrategies;
 
-import domain.Beleg;
+import domain.model.Beleg;
+import domain.model.database.loadSaveStrategies.utilities.ExcelLoadSaveTemplate;
 
 import java.io.File;
 import java.io.IOException;

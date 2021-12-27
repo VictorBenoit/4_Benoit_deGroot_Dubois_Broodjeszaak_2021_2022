@@ -1,18 +1,14 @@
 package application;
 import domain.*;
-//import domain.Beleg;
+//import domain.model.Beleg;
 //import domain.Broodjeszaak;
-import domain.loadSaveStrategies.BroodjesExcelLoadSaveStrategy;
+import domain.model.Beleg;
+import domain.model.Broodje;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.AdminView;
 import view.KitchenView;
 import view.OrderView;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
 
 
 public class BroodjeszaakMain extends Application {

@@ -1,4 +1,4 @@
-package domain.loadSaveStrategies;
+package domain.model.database.loadSaveStrategies.utilities;
 
 import excel.ExcelPlugin;
 import jxl.read.biff.BiffException;
@@ -13,7 +13,7 @@ public abstract class ExcelLoadSaveTemplate<K,V> {
 
     ExcelPlugin excel = new ExcelPlugin();
     ArrayList<ArrayList<String>> returnExcel = new ArrayList<ArrayList<String>>();
-    ArrayList<String> infoExcel = new ArrayList<String>();
+    protected ArrayList<String> infoExcel = new ArrayList<String>();
 
     public Map<K,V> load(File file) throws IOException{
         Map<K,V> returnExcelMap = new HashMap<K,V>();

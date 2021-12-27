@@ -1,9 +1,6 @@
-package domain.loadSaveStrategies.factory;
+package domain.model.database.loadSaveStrategies.factory;
 
-import domain.Broodje;
-import domain.loadSaveStrategies.*;
-
-import java.util.Locale;
+import domain.model.database.loadSaveStrategies.*;
 
 public class LoadSaveStrategyFactory {
 

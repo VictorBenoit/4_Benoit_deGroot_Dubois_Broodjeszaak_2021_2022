@@ -1,10 +1,10 @@
-package domain.loadSaveStrategies;
+package domain.model.database.loadSaveStrategies;
 
-import domain.Broodje;
+import domain.model.Broodje;
+import domain.model.database.loadSaveStrategies.utilities.ExcelLoadSaveTemplate;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class BroodjesExcelLoadSaveStrategy extends ExcelLoadSaveTemplate implements LoadSaveStrategy<Broodje>{

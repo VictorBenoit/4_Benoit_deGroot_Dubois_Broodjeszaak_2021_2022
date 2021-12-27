@@ -1,6 +1,7 @@
-package domain.loadSaveStrategies;
+package domain.model.database.loadSaveStrategies;
 
-import domain.Broodje;
+import domain.model.Broodje;
+import domain.model.database.loadSaveStrategies.utilities.TekstLoadSaveTemplate;
 
 import java.io.File;
 import java.io.IOException;
