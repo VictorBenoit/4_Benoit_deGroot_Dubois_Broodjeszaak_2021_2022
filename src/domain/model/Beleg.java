@@ -17,6 +17,10 @@ public class Beleg {
         setSales(sales);
     }
 
+    public void aanPassenVoorraad() {
+        amount--;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

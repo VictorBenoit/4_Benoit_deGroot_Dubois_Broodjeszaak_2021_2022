@@ -1,7 +1,7 @@
 package view.panels;
 
-import domain.Beleg;
-import domain.Broodje;
+import domain.model.Beleg;
+import domain.model.Broodje;
 import domain.Broodjeszaak;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

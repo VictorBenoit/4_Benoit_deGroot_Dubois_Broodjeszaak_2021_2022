@@ -7,9 +7,10 @@ import java.util.Map;
 
 public interface Subject {
 
-    public void voegBestelLijnToe(String naamBroodje);
+    public void voegBestelLijnToe(String naamBroodje, String naamBeleg);
     public ArrayList<BestelLijn> getLijstBestelLijnen();
     public Map getVoorraadLijstBroodjes();
+    public Map getVoorraadLijstBeleg();
     public void notifyObservers();
     public void addObserver(Observer observer);
     public void removeObserver(Observer observer);

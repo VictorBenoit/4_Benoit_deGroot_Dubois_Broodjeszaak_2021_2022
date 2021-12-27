@@ -6,8 +6,7 @@ import domain.model.database.loadSaveStrategies.LoadSaveStrategy;
 import domain.model.database.loadSaveStrategies.factory.LoadSaveStrategyFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 public class BelegDatabase {
     private String strategy;
@@ -34,5 +33,24 @@ public class BelegDatabase {
 
     public ArrayList<Beleg> getBeleggenArrayList() {
         return beleggen;
+    }
+
+    public Beleg getBeleg(String naamBeleg) { return belegMap.get(naamBeleg); }
+
+    public Map getVoorraadLijstBeleg() {
+
+        Map<String,Integer> voorraadMap = new HashMap<String,Integer>();
+
+        Set<String> keySet = belegMap.keySet();
+        ArrayList<String> listOfKeys = new ArrayList<String>(keySet);
+        Collection<Beleg> values = belegMap.values();
+        ArrayList<Beleg> listOfValues = new ArrayList<Beleg>(values);
+
+        for (String key: keySet) {
+            for (Beleg beleg: listOfValues) {
+                voorraadMap.put(key, beleg.getAmount());
+            }
+        }
+        return voorraadMap;
     }
 }

@@ -1,32 +1,38 @@
 package domain.model;
 
 import domain.Observer;
+import domain.model.database.BelegDatabase;
 import domain.model.database.BroodjesDatabase;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
 public class BestelFacade implements Subject{
 
     String strategyBroodjesTekst = "BROODJETEKST";
-    ArrayList<Bestelling> bestellings = new ArrayList<>();
     BroodjesDatabase broodjesDatabase = new BroodjesDatabase(strategyBroodjesTekst);
-    Bestelling bestelling = new Bestelling();
+    String strategyBelegTekst = "BELEGTEKST";
+    BelegDatabase belegDatabase = new BelegDatabase(strategyBelegTekst);
+    ArrayList<Bestelling> bestellings = new ArrayList<>();
     private List<Observer> observersList = new ArrayList<>();
+    Bestelling bestelling;
 
     public BestelFacade() {
+        bestelling = new Bestelling();
     }
 
     @Override
-    public void voegBestelLijnToe(String naamBroodje) {
+    public void voegBestelLijnToe(String naamBroodje, String naamBeleg) {
         Broodje broodje = broodjesDatabase.getBroodje(naamBroodje);
-        bestelling.voegBestelLijnToe(broodje);
+        Beleg beleg = belegDatabase.getBeleg(naamBeleg);
+        bestelling.voegBestelLijnToe(broodje, beleg);
         bestellings.add(bestelling);
+        notifyObservers();
     }
 
     public ArrayList<BestelLijn> getLijstBestelLijnen() {
-        notifyObservers();
         return bestelling.getLijstBestelLijnen();
     }
 
@@ -36,10 +42,18 @@ public class BestelFacade implements Subject{
     }
 
     @Override
+    public Map getVoorraadLijstBeleg() {
+        return belegDatabase.getVoorraadLijstBeleg();
+    }
+
+    @Override
     public void notifyObservers() {
         for (Observer observer : this.observersList) {
-            if (observer.getEvent() == BestellingEvents.TOEVOEGEN_BROODJE) {
-                observer.update(bestelling.getLijstBestelLijnen());
+            EnumSet<BestellingEvents> bestellingEventsEnumSet = observer.getEvent();
+            for (BestellingEvents event : bestellingEventsEnumSet) {
+                if (event == BestellingEvents.TOEVOEGEN_BROODJE || event == BestellingEvents.TOEVOEGEN_BELEG) {
+                    observer.update(bestelling.getLijstBestelLijnen());
+                }
             }
         }
     }

@@ -6,31 +6,37 @@ import domain.model.BestelLijn;
 import domain.model.BestellingEvents;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.Map;
 
 public class BestelViewController implements Observer {
 
     BestelFacade bestelFacade = new BestelFacade();
     ArrayList<BestelLijn> bestelLijnArray = new ArrayList<>();
-    private BestellingEvents event;
+    private static EnumSet<BestellingEvents> bestellingEventsEnumSet = EnumSet.of(BestellingEvents.TOEVOEGEN_BROODJE, BestellingEvents.TOEVOEGEN_BELEG);
 
     public BestelViewController() {
-        event = BestellingEvents.TOEVOEGEN_BROODJE;
         bestelFacade.addObserver(this);
     }
 
-    public void voegBestelLijnToe(String naamBroodje) {}
+    public void voegBestelLijnToe(String naamBroodje, String naamBeleg) {
+        bestelFacade.voegBestelLijnToe(naamBroodje, naamBeleg);
+    }
 
     public ArrayList<BestelLijn> getLijstBestlLijnen() {
         return bestelFacade.getLijstBestelLijnen();
     }
 
-    public Map getVoorraadlijstBroodjes() {
+    public Map getVoorraadLijstBroodjes() {
         return bestelFacade.getVoorraadLijstBroodjes();
     }
 
-    public BestellingEvents getEvent() {
-        return event;
+    public Map getVoorraadLijstBeleg() {
+        return bestelFacade.getVoorraadLijstBeleg();
+    }
+
+    public EnumSet<BestellingEvents> getEvent() {
+        return bestellingEventsEnumSet;
     }
 
     public ArrayList<BestelLijn> update(ArrayList<BestelLijn> bestelLijn) {

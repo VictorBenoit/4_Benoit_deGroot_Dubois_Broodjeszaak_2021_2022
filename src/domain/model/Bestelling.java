@@ -1,21 +1,25 @@
 package domain.model;
 
+import domain.model.StatePattern.BestellingState;
+import domain.model.StatePattern.InBestelling;
+
 import java.util.ArrayList;
 
 public class Bestelling {
 
-    ArrayList<BestelLijn> bestelLijnArray = new ArrayList<>();
+    ArrayList<BestelLijn> bestelLijnArrayList = new ArrayList<>();
+    private BestellingState state;
 
     public Bestelling() {
-
+        state = new InBestelling();
     }
 
     public ArrayList<BestelLijn> getLijstBestelLijnen() {
-        return bestelLijnArray;
+        bestelLijnArrayList = state.getBestelLijnArray();
+        return bestelLijnArrayList;
     }
 
-    public void voegBestelLijnToe(Broodje broodje) {
-        BestelLijn bestelLijn = new BestelLijn(broodje);
-        bestelLijnArray.add(bestelLijn);
+    public void voegBestelLijnToe(Broodje broodje, Beleg beleg) {
+        state.voegBestelLijnToe(broodje, beleg);
     }
 }
