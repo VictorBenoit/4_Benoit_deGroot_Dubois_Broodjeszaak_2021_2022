@@ -3,8 +3,13 @@
 
 package domain;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import domain.model.database.BelegDatabase;
+import domain.model.database.BroodjesDatabase;
+import domain.model.database.loadSaveStrategies.*;
+import domain.model.database.loadSaveStrategies.factory.LoadSaveStrategyFactory;
+import domain.model.Beleg;
+import domain.model.Broodje;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,31 +22,26 @@ public class Broodjeszaak {
     //private List<Broodje> data1;
     //private List<Beleg> data2;
 
-    Map<String, Broodje> broodjesMap;
+    /*Map<String, Broodje> broodjesMap;
     Map<String, Beleg> belegMap;
+
+    Map<String, Broodje> broodjesMapE;
+    Map<String, Beleg> belegMapE;*/
 
     ArrayList<Broodje> broodjes = new ArrayList<Broodje>();
     ArrayList<Beleg> beleggen = new ArrayList<Beleg>();
 
+    String strategyBroodjesTekst = "BROODJETEKST";
+    String strategyBelegExcel = "BELEGEXCEL";
+
+    BroodjesDatabase broodjesDatabase = new BroodjesDatabase(strategyBroodjesTekst);
+    BelegDatabase belegDatabase = new BelegDatabase(strategyBelegExcel);
+
 
     public Broodjeszaak() {
-        File Mybroodjes = new File("src/bestanden/broodjes.txt");
-        File MyBeleggen = new File("src/bestanden/beleg.txt");
 
-        try {
-            broodjesMap = new BroodjeReader().load(Mybroodjes);
-            broodjes.addAll(broodjesMap.values());
-
-            belegMap = new BelegReader().load(MyBeleggen);
-            beleggen.addAll(belegMap.values());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
-    public ArrayList<Broodje> getBroodjes() { return broodjes; }
-    public ArrayList<Beleg> getBeleg() { return beleggen; }
-
-
+    public ArrayList<Broodje> getBroodjes() { return broodjesDatabase.getBroodjesArrayList(); } //is verplaatst naar BroodjesDatabase, dus aanpassen in FX
+    public ArrayList<Beleg> getBeleg() { return belegDatabase.getBeleggenArrayList(); } //idem naar BelegDatabase
 }

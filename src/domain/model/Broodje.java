@@ -1,7 +1,7 @@
 //Brinio 2-12: klasse broodje voor het aanmaken van een broodje en de nodige informatie op te vragen, setters en getters zijn toegevoegd
 
 
-package domain;
+package domain.model;
 
 public class Broodje {
 

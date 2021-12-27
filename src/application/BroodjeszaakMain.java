@@ -1,7 +1,9 @@
 package application;
 import domain.*;
-//import domain.Beleg;
+//import domain.model.Beleg;
 //import domain.Broodjeszaak;
+import domain.model.Beleg;
+import domain.model.Broodje;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.AdminView;
@@ -19,6 +21,7 @@ public class BroodjeszaakMain extends Application {
 		AdminView adminView = new AdminView(broodjeszaak);
 		OrderView orderView = new OrderView(broodjeszaak);
 		KitchenView kitchenView = new KitchenView();
+
 	}
 
 	public static void main(String[] args) {
