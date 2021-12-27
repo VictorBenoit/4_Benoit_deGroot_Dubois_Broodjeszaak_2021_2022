@@ -1,8 +1,11 @@
 package view.panels;
 
-import domain.Beleg;
-import domain.Broodje;
+import controller.CountController;
 import domain.Broodjeszaak;
+import domain.model.Beleg;
+import domain.model.Broodje;
+import domain.model.database.BelegDatabase;
+import domain.model.database.BroodjesDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -17,9 +20,15 @@ import java.util.StringJoiner;
 
 public class OrderViewPane extends GridPane {
     private Broodjeszaak broodjeszaak;
-    private ArrayList<Beleg> belegName;
+    private BelegDatabase belegDatabase;
     private ObservableList<Beleg> beleggen;
-    private TableView<Beleg> table;
+    private ArrayList<Beleg> belegge;
+    private ArrayList<String> belegName = new ArrayList<>();
+    private Label lbl = new Label("Count is 0");
+    private CountController cont;
+    VBox box1;
+    Label broodjeType;
+    TableView<Beleg> table;
 
     public OrderViewPane(Broodjeszaak broodjeszaak) {
         this.broodjeszaak = broodjeszaak;
@@ -39,7 +48,7 @@ public class OrderViewPane extends GridPane {
 
         ArrayList<Broodje> broodje = new ArrayList<>(broodjeszaak.getBroodjes());
         ArrayList<String> broodjesName = new ArrayList<>();
-        for (Broodje b:broodje
+        for (Broodje b : broodje
         ) {
             String name = b.getName();
             System.out.println(name);
@@ -55,12 +64,54 @@ public class OrderViewPane extends GridPane {
         //beleg
         VBox p2 = new VBox(8);
         p2.setAlignment(Pos.CENTER_LEFT);
-        p3.setPadding(new Insets(0));
-        p3.setBackground(
-                new Background(
-                        new BackgroundFill(Color.WHITE,
-                                new CornerRadii(20), new Insets(0))));
-        Label type2 = new Label("Selecteer beleg:");
+
+        Label type2 = new Label("Selecteer 5 verschillende beleg:");
+        ArrayList<Beleg> belegje = new ArrayList<>(broodjeszaak.getBeleg());
+        ArrayList<String> belegName = new ArrayList<>();
+        for (Beleg b : belegje
+        ) {
+            String name = b.getName();
+            System.out.println(name);
+            belegName.add(name);
+        }
+        ObservableList<String> observableList2 = FXCollections.observableList(belegName);
+        ChoiceBox<String> chbx2 = new ChoiceBox<>();
+        chbx2.setItems(observableList2);
+        chbx2.getItems();
+
+        ChoiceBox<String> chbx3 = new ChoiceBox<>();
+        chbx3.setItems(observableList2);
+        chbx3.getItems();
+
+        ChoiceBox<String> chbx4 = new ChoiceBox<>();
+        chbx4.setItems(observableList2);
+        chbx4.getItems();
+
+        ChoiceBox<String> chbx5 = new ChoiceBox<>();
+        chbx5.setItems(observableList2);
+        chbx5.getItems();
+
+        ChoiceBox<String> chbx6 = new ChoiceBox<>();
+        chbx6.setItems(observableList2);
+        chbx6.getItems();
+
+        p2.getChildren().addAll(type2, chbx2, chbx3, chbx4, chbx5, chbx6);
+        this.add(p2,0, 1);
+
+        VBox p1 = new VBox(8);
+        p1.setAlignment(Pos.CENTER_LEFT);
+
+        Label lbl = new Label("Count is 0");
+        Button inc = new Button("Increment");
+        Button dec = new Button("Decrement");
+        p1.setAlignment(Pos.CENTER);       p1.setPadding(new Insets(10));
+        p1.getChildren().addAll(lbl, inc, dec);
+        inc.setOnAction(e -> cont.incrementButtonPressed());
+        dec.setOnAction(e -> cont.decrementButtonPressed());
+        this.add(p1, 1, 0);
+
+
+        /*
         ArrayList<Beleg> beleg = new ArrayList<>(broodjeszaak.getBeleg());
 
 
@@ -68,25 +119,25 @@ public class OrderViewPane extends GridPane {
         refresh1();
         StringJoiner joiner = new StringJoiner(System.lineSeparator());
         ArrayList<String> belegName = new ArrayList<>();
-        for (Beleg b:beleg
-             ) {
+        for (Beleg b : beleg
+        ) {
             String name = b.getName();
             joiner.add(b.getName());
             System.out.println(name);
             belegName.add(name);
         }
+        Button bt = new Button();
+        bt.setText("+1");
 
-       TableColumn<Beleg, String> colName1 = new TableColumn<Beleg, String>("Beleg");
+        TableColumn<Beleg, String> colName1 = new TableColumn<Beleg, String>("Beleg");
         colName1.setMinWidth(100);
         colName1.setCellValueFactory(new PropertyValueFactory<Beleg, String>("name"));
         table.getColumns().addAll(colName1);
         this.add(table, 0, 1);
 
 
-        Button bt = new Button();
-        bt.setText("+1");
         p2.getChildren().addAll(type2, bt);
-        this.add(p2, 0, 4);
+        this.add(p2, 1, 1);
 
         // Moet waarde beleg zijn.
 
@@ -95,15 +146,14 @@ public class OrderViewPane extends GridPane {
         //min.setOnAction(e -> countDown());
 
 
-
+*/
     }
 
-    public void refresh1() {
-        beleggen = FXCollections.observableArrayList(broodjeszaak.getBeleg());
-        table.setItems(beleggen);
-        table.refresh();
-    }
-
-
+   /* public Pane root() {
+        return root;
+    }*/
+   public void setLabel(String s) {
+       lbl.setText(s);
+   }
 
 }
