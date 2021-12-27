@@ -6,8 +6,7 @@ import domain.model.database.loadSaveStrategies.LoadSaveStrategy;
 import domain.model.database.loadSaveStrategies.factory.LoadSaveStrategyFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 public class BroodjesDatabase {
     private String strategy;
@@ -34,5 +33,26 @@ public class BroodjesDatabase {
 
     public ArrayList<Broodje> getBroodjesArrayList() {
         return broodjes;
+    }
+
+    public Broodje getBroodje(String naamBroodje) {
+        return broodjesMap.get(naamBroodje);
+    }
+
+    public Map getVoorraadLijstBroodjes() {
+
+        Map<String,Integer> voorraadMap = new HashMap<String,Integer>();
+
+        Set<String> keySet = broodjesMap.keySet();
+        ArrayList<String> listOfKeys = new ArrayList<String>(keySet);
+        Collection<Broodje> values = broodjesMap.values();
+        ArrayList<Broodje> listOfValues = new ArrayList<Broodje>(values);
+
+        for (String key: keySet) {
+            for (Broodje broodje: listOfValues) {
+            voorraadMap.put(key, broodje.getAmount());
+        }
+    }
+        return voorraadMap;
     }
 }

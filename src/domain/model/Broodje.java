@@ -19,6 +19,10 @@ public class Broodje {
         setSales(sales);
     }
 
+    public void aanPassenVoorraad() {
+        amount--;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -35,9 +39,7 @@ public class Broodje {
         return price;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
+    public void setAmount(int amount) { this.amount = amount; }
 
     public int getAmount() {
         return amount;
