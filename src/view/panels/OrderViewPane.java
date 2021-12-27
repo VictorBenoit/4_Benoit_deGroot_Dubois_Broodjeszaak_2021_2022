@@ -1,8 +1,11 @@
 package view.panels;
 
+import controller.BestelViewController;
 import domain.model.Beleg;
 import domain.model.Broodje;
 import domain.Broodjeszaak;
+import domain.model.database.BelegDatabase;
+import domain.model.database.BroodjesDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -16,13 +19,16 @@ import java.util.ArrayList;
 import java.util.StringJoiner;
 
 public class OrderViewPane extends GridPane {
-    private Broodjeszaak broodjeszaak;
+
+    private BestelViewController bestelViewController;
     private ArrayList<Beleg> belegName;
     private ObservableList<Beleg> beleggen;
     private TableView<Beleg> table;
+    private BroodjesDatabase broodjesDatabase;
+    private BelegDatabase belegDatabase;
 
-    public OrderViewPane(Broodjeszaak broodjeszaak) {
-        this.broodjeszaak = broodjeszaak;
+    public OrderViewPane(BestelViewController bestelViewController) {
+        this.bestelViewController = bestelViewController;
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
@@ -33,18 +39,13 @@ public class OrderViewPane extends GridPane {
         p3.setPadding(new Insets(10));
 
         Label type1 = new Label("Selecteer type broodje:");
-
-
         // geef domain.. terug ipv naam.
 
-        ArrayList<Broodje> broodje = new ArrayList<>(broodjeszaak.getBroodjes());
-        ArrayList<String> broodjesName = new ArrayList<>();
-        for (Broodje b:broodje
-        ) {
-            String name = b.getName();
-            System.out.println(name);
-            broodjesName.add(name);
-        }
+        broodjesDatabase = new BroodjesDatabase("BROODJETEKST");
+        belegDatabase = new BelegDatabase("BELEGTEKST");
+
+        ArrayList<String> broodjesName = broodjesDatabase.getKeyBroodjes();
+
         ObservableList<String> observableList = FXCollections.observableList(broodjesName);
         ChoiceBox<String> chbx = new ChoiceBox<>();
         chbx.setItems(observableList);
@@ -61,27 +62,18 @@ public class OrderViewPane extends GridPane {
                         new BackgroundFill(Color.WHITE,
                                 new CornerRadii(20), new Insets(0))));
         Label type2 = new Label("Selecteer beleg:");
-        ArrayList<Beleg> beleg = new ArrayList<>(broodjeszaak.getBeleg());
-
+        ArrayList<Beleg> beleg = belegDatabase.getBeleggenArrayList();
 
         table = new TableView<>();
         refresh1();
         StringJoiner joiner = new StringJoiner(System.lineSeparator());
-        ArrayList<String> belegName = new ArrayList<>();
-        for (Beleg b:beleg
-             ) {
-            String name = b.getName();
-            joiner.add(b.getName());
-            System.out.println(name);
-            belegName.add(name);
-        }
+        ArrayList<String> belegName = belegDatabase.getKeyBeleg();
 
-       TableColumn<Beleg, String> colName1 = new TableColumn<Beleg, String>("Beleg");
+        TableColumn<Beleg, String> colName1 = new TableColumn<Beleg, String>("Beleg");
         colName1.setMinWidth(100);
         colName1.setCellValueFactory(new PropertyValueFactory<Beleg, String>("name"));
         table.getColumns().addAll(colName1);
         this.add(table, 0, 1);
-
 
         Button bt = new Button();
         bt.setText("+1");
@@ -99,11 +91,12 @@ public class OrderViewPane extends GridPane {
     }
 
     public void refresh1() {
-        beleggen = FXCollections.observableArrayList(broodjeszaak.getBeleg());
+        beleggen = FXCollections.observableArrayList(belegDatabase.getBeleggenArrayList());
         table.setItems(beleggen);
         table.refresh();
     }
 
 
-
+    public void setLabel(String s) {
+    }
 }

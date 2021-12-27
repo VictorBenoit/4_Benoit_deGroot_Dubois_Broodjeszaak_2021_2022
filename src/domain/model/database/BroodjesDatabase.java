@@ -31,6 +31,12 @@ public class BroodjesDatabase {
         return broodjesMap;
     }
 
+    public ArrayList<String> getKeyBroodjes() {
+        Set<String> keySet = broodjesMap.keySet();
+        ArrayList<String> listOfKeys = new ArrayList<String>(keySet);
+        return listOfKeys;
+    }
+
     public ArrayList<Broodje> getBroodjesArrayList() {
         return broodjes;
     }

@@ -1,4 +1,5 @@
 package application;
+import controller.BestelViewController;
 import controller.CountController;
 import domain.*;
 //import domain.model.Beleg;
@@ -19,11 +20,12 @@ public class BroodjeszaakMain extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		Broodjeszaak broodjeszaak = new Broodjeszaak();
+		BestelViewController bestelViewController = new BestelViewController();
 
 		Broodje broodje = new Broodje("bruin", 5.0, 10, 0);
 		Beleg beleg = new Beleg("spek", 0.50, 10, 0);
 		AdminView adminView = new AdminView(broodjeszaak);
-		OrderView orderView = new OrderView(broodjeszaak);
+		OrderView orderView = new OrderView(bestelViewController);
 		KitchenView kitchenView = new KitchenView();
 
 	}

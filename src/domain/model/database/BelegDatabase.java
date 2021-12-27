@@ -35,6 +35,12 @@ public class BelegDatabase {
         return beleggen;
     }
 
+    public ArrayList<String> getKeyBeleg() {
+        Set<String> keySet = belegMap.keySet();
+        ArrayList<String> listOfKeys = new ArrayList<String>(keySet);
+        return listOfKeys;
+    }
+
     public Beleg getBeleg(String naamBeleg) { return belegMap.get(naamBeleg); }
 
     public Map getVoorraadLijstBeleg() {
