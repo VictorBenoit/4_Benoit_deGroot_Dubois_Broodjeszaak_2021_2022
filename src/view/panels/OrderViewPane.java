@@ -46,7 +46,7 @@ public class OrderViewPane extends GridPane {
         Label type1 = new Label("Selecteer type broodje:");
         // geef domain.. terug ipv naam.
 
-        broodjesDatabase = new BroodjesDatabase("BROODJETEKST");
+        broodjesDatabase = new BroodjesDatabase("BROODJEEXCEL");
         belegDatabase = new BelegDatabase("BELEGTEKST");
 
         ArrayList<String> broodjesName = broodjesDatabase.getKeyBroodjes();
@@ -61,79 +61,115 @@ public class OrderViewPane extends GridPane {
 
         // Beleg
         VBox p2 = new VBox(8);
-        p2.setAlignment(Pos.CENTER);
+        p2.setAlignment(Pos.CENTER_LEFT);
         p3.setPadding(new Insets(0));
         p3.setBackground(
                 new Background(
                         new BackgroundFill(Color.WHITE,
                                 new CornerRadii(20), new Insets(0))));
 
-        /*ArrayList<Beleg> beleg = belegDatabase.getBeleggenArrayList();*/
-
         table1 = new TableView<>();
         refresh1();
-        /*StringJoiner joiner = new StringJoiner(System.lineSeparator());
-        ArrayList<String> belegName = belegDatabase.getKeyBeleg();*/
 
         TableColumn<Beleg, String> colName1 = new TableColumn<Beleg, String>("Beleg");
         colName1.setMinWidth(300);
         colName1.setCellValueFactory(new PropertyValueFactory<>("name"));
-        /*TableColumn<Beleg, Double> colPrice1 = new TableColumn<>("Prijs");
-        colPrice1.setMinWidth(100);
-        colPrice1.setCellValueFactory(new PropertyValueFactory<Beleg, Double>("price"));*/
 
         table1.getColumns().addAll(colName1);
         this.add(table1, 0, 1);
 
-        /*String selectieBeleg = String.valueOf(table1.getSelectionModel().getSelectedItem());
-        System.out.println(selectieBeleg);*/
+        VBox p4 = new VBox(8);
+        p4.setAlignment(Pos.CENTER_LEFT);
+        p4.setPadding(new Insets(10));
 
         Label type2 = new Label("Selecteer beleg:");
         Button btBelegToevoegen = new Button();
         btBelegToevoegen.setText("+1");
-        p2.getChildren().addAll(type2, btBelegToevoegen);
+        p4.getChildren().addAll(type2, btBelegToevoegen);
 
         Label type3 = new Label("Bestelling voltooid?");
         Button btBestel = new Button();
         btBestel.setText("Bestelling Plaatsen");
-        p2.getChildren().addAll(type3, btBestel);
+        p4.getChildren().addAll(type3, btBestel);
+
+        Label type4 = new Label("Vorige bestel lijn toevoegen");
+        Button btIdentiek = new Button();
+        btIdentiek.setText("Toevoegen");
+        p4.getChildren().addAll(type4, btIdentiek);
+
+        Label type5 = new Label("Vorige bestel lijn verwijderen");
+        Button btVerwijderen = new Button();
+        btVerwijderen.setText("Verwijderen");
+        p4.getChildren().addAll(type5, btVerwijderen);
+
+        Label type6 = new Label("Volledige bestelling annuleren");
+        Button btAllesVerwijderen = new Button();
+        btAllesVerwijderen.setText("Alles verwijderen");
+        p4.getChildren().addAll(type6, btAllesVerwijderen);
 
         btBestel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String selectieBroodje = chbx.getSelectionModel().getSelectedItem();
-                System.out.println(selectieBroodje);
-                String selectieBeleg = (table1.getSelectionModel().getSelectedItem().getName());
-                bestelViewController.voegBestelLijnToe(selectieBroodje, allBeleg);
+                    String selectieBroodje = chbx.getSelectionModel().getSelectedItem();
+                    bestelViewController.voegBestelLijnToe(selectieBroodje, allBeleg);
+                    bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
+                    updateLijnen(bestelLijnArrayList);
 
-                bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
-                updateLijnen(bestelLijnArrayList);
-
-                allBeleg = "";
+                    allBeleg = "";
             }
         });
 
         btBelegToevoegen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                allBeleg += table1.getSelectionModel().getSelectedItem().getName() + " ";
+                try{
+                    String choiceBeleg = table1.getSelectionModel().getSelectedItem().getName();
+                    allBeleg += choiceBeleg + " ";
+                } catch (NullPointerException e) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Error venster");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Maak een keuze van een beleg!");
+                    alert.showAndWait();
+                }
             }
         });
 
-        /*btBestel.setOnAction(actionEvent -> bestelViewController.voegBestelLijnToe(selectieBroodje, selectieBeleg));*/
+        btIdentiek.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                bestelViewController.getIdentiekeLijn(bestelLijnArrayList);
+                bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
+                updateLijnen(bestelLijnArrayList);
+                allBeleg = "";
+            }
+        });
+
+        btVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                bestelViewController.verwijderen(bestelLijnArrayList);
+                bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
+                updateLijnen(bestelLijnArrayList);
+            }
+        });
+
+        btAllesVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                bestelViewController.allesVerwijderen();
+                bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
+                updateLijnen(bestelLijnArrayList);
+            }
+        });
 
         this.add(p2, 0, 2);
-
-        // Moet waarde beleg zijn.
-
-        //plus.setOnAction(e -> countUp());
-        //min.setOnAction(e -> countDown());
-
+        this.add(p4, 0, 3);
     }
 
     public void updateLijnen(ArrayList<BestelLijn> bestelLijnArrayList1) {
-        Label label1 = new Label("Bestel lijnen");
         table2 = new TableView<>();
+        Label label1 = new Label("Bestel lijnen");
         refresh2(bestelLijnArrayList1);
         TableColumn<BestelLijn, String> colName1 = new TableColumn<>("Besteld broodje");
         colName1.setMinWidth(150);

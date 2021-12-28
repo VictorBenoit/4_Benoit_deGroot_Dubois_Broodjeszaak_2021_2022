@@ -9,7 +9,7 @@ public class BestelLijn {
         this.naamBroodje = naamBroodje;
         this.naamBelegen = naamBelegen;
         /*Broodje broodje = broodjesDatabase.getBroodje(naamBroodje);
-        Beleg beleg = belegDatabase.getBeleg(naamBeleg);*//*
+        Beleg beleg = belegDatabase.getBeleg(naamBeleg);
         broodje.aanPassenVoorraad();
         beleg.aanPassenVoorraad();*/
     }

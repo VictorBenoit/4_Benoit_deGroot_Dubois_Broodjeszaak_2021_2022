@@ -5,6 +5,7 @@ import domain.model.Broodje;
 import domain.model.database.loadSaveStrategies.LoadSaveStrategy;
 import domain.model.database.loadSaveStrategies.factory.LoadSaveStrategyFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -12,6 +13,7 @@ public class BroodjesDatabase {
     private String strategy;
     Map<String, Broodje> broodjesMap;
     ArrayList<Broodje> broodjes = new ArrayList<Broodje>();
+    LoadSaveStrategy myStrategy;
 
     public BroodjesDatabase(String strategy) {
         this.strategy = strategy;
@@ -60,5 +62,9 @@ public class BroodjesDatabase {
         }
     }
         return voorraadMap;
+    }
+
+    public void saveDatabase(File file) {
+        myStrategy.writeFile(file, broodjesMap);
     }
 }

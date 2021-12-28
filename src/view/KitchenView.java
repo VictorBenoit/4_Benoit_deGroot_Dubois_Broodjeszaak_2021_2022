@@ -13,7 +13,7 @@ public class KitchenView {
 		stage.setTitle("KITCHEN VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(680);
-		stage.setY(470);
+		stage.setY(620);
 		Group root = new Group();
 		Scene scene = new Scene(root, 650, 200);			
 		stage.setScene(scene);

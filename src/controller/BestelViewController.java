@@ -28,8 +28,7 @@ public class BestelViewController implements Observer {
     }
 
     public Map getVoorraadLijstBroodjes() {
-        return bestelFacade.getVoorraadLijstBroodjes();
-    }
+        return bestelFacade.getVoorraadLijstBroodjes(); }
 
     public Map getVoorraadLijstBeleg() {
         return bestelFacade.getVoorraadLijstBeleg();
@@ -37,6 +36,24 @@ public class BestelViewController implements Observer {
 
     public EnumSet<BestellingEvents> getEvent() {
         return bestellingEventsEnumSet;
+    }
+
+    public void getIdentiekeLijn(ArrayList<BestelLijn> identiekArrayList) {
+        int grootte = identiekArrayList.size() -1;
+        String naamIdentiekBroodje = identiekArrayList.get(grootte).getNaamBroodje();
+        String naamIdentiekBeleg = identiekArrayList.get(grootte).getNaamBelegen();
+        bestelFacade.voegBestelLijnToe(naamIdentiekBroodje, naamIdentiekBeleg);
+    }
+
+    public void verwijderen(ArrayList<BestelLijn> verwijderenArray) {
+        int grootte = verwijderenArray.size() -1;
+        verwijderenArray.remove(grootte);
+        bestelLijnArray = verwijderenArray;
+    }
+
+    public void allesVerwijderen() {
+        bestelLijnArray.clear();
+
     }
 
     public ArrayList<BestelLijn> update(ArrayList<BestelLijn> bestelLijn) {

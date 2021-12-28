@@ -2,7 +2,6 @@ package view;
 
 import controller.BestelViewController;
 import controller.CountController;
-import domain.Broodjeszaak;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -28,7 +27,7 @@ public class OrderView {
 		stage.setY(20);
 
 		Group root = new Group();
-		Scene scene = new Scene(root, 650, 650);
+		Scene scene = new Scene(root, 650, 800);
 		BorderPane borderPane = new OrderMainPane();
 		borderPane.prefHeightProperty().bind(scene.heightProperty());
 		borderPane.prefWidthProperty().bind(scene.widthProperty());

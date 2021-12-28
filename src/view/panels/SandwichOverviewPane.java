@@ -3,7 +3,8 @@
 package view.panels;
 import domain.model.Beleg;
 import domain.model.Broodje;
-import domain.Broodjeszaak;
+import domain.model.database.BelegDatabase;
+import domain.model.database.BroodjesDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -15,15 +16,17 @@ import javafx.scene.layout.GridPane;
 
 
 public class SandwichOverviewPane extends GridPane {
-	private Broodjeszaak broodjeszaak;
+	private BroodjesDatabase broodjesDatabase;
+	private BelegDatabase belegDatabase;
 	private TableView<Broodje> table1;
 	private TableView<Beleg> table2;
 	private ObservableList<Broodje> broodjes;
 	private ObservableList<Beleg> beleggen;
 
 
-	public SandwichOverviewPane(Broodjeszaak broodjeszaak) {
-		this.broodjeszaak = broodjeszaak;
+	public SandwichOverviewPane() {
+		broodjesDatabase = new BroodjesDatabase("BROODJEEXCEL");
+		belegDatabase = new BelegDatabase("BELEGEXCEL");
 		this.setPadding(new Insets(5, 5, 5, 5));
 		this.setVgap(5);
 		this.setHgap(5);
@@ -78,13 +81,13 @@ public class SandwichOverviewPane extends GridPane {
 	//Brinio 2-12: refresh codes om de Arraylisten in te vullen in de tabellen
 
 	public void refresh1() {
-		broodjes = FXCollections.observableArrayList(broodjeszaak.getBroodjes());
+		broodjes = FXCollections.observableArrayList(broodjesDatabase.getBroodjesArrayList());
 		table1.setItems(broodjes);
 		table1.refresh();
 	}
 
 	public void refresh2() {
-		beleggen = FXCollections.observableArrayList(broodjeszaak.getBeleg());
+		beleggen = FXCollections.observableArrayList(belegDatabase.getBeleggenArrayList());
 		table2.setItems(beleggen);
 		table2.refresh();
 	}
