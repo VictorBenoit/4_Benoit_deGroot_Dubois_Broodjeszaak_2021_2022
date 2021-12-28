@@ -27,7 +27,7 @@ public class BestelFacade implements Subject{
     public void voegBestelLijnToe(String naamBroodje, String naamBeleg) {
         Broodje broodje = broodjesDatabase.getBroodje(naamBroodje);
         Beleg beleg = belegDatabase.getBeleg(naamBeleg);
-        bestelling.voegBestelLijnToe(broodje, beleg);
+        bestelling.voegBestelLijnToe(naamBroodje, naamBeleg);
         bestellings.add(bestelling);
         notifyObservers();
     }

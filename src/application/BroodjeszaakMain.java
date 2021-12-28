@@ -20,12 +20,11 @@ public class BroodjeszaakMain extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		Broodjeszaak broodjeszaak = new Broodjeszaak();
-		BestelViewController bestelViewController = new BestelViewController();
 
 		Broodje broodje = new Broodje("bruin", 5.0, 10, 0);
 		Beleg beleg = new Beleg("spek", 0.50, 10, 0);
 		AdminView adminView = new AdminView(broodjeszaak);
-		OrderView orderView = new OrderView(bestelViewController);
+		OrderView orderView = new OrderView();
 		KitchenView kitchenView = new KitchenView();
 
 	}

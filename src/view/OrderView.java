@@ -20,7 +20,8 @@ public class OrderView {
 	private Label lbl = new Label("Count is 0");
 	private Pane root;
 	private Scene scene;
-	public OrderView(BestelViewController bestelViewController){
+	public OrderView(){
+
 		stage.setTitle("ORDER VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(20);
@@ -28,7 +29,7 @@ public class OrderView {
 
 		Group root = new Group();
 		Scene scene = new Scene(root, 650, 650);
-		BorderPane borderPane = new OrderMainPane(bestelViewController);
+		BorderPane borderPane = new OrderMainPane();
 		borderPane.prefHeightProperty().bind(scene.heightProperty());
 		borderPane.prefWidthProperty().bind(scene.widthProperty());
 		root.getChildren().add(borderPane);

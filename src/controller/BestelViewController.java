@@ -24,7 +24,7 @@ public class BestelViewController implements Observer {
     }
 
     public ArrayList<BestelLijn> getLijstBestlLijnen() {
-        return bestelFacade.getLijstBestelLijnen();
+        return bestelLijnArray;
     }
 
     public Map getVoorraadLijstBroodjes() {
