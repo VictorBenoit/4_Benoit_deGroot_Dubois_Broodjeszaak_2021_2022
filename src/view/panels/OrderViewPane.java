@@ -28,6 +28,7 @@ public class OrderViewPane extends GridPane {
     private TableView<BestelLijn> table2;
     private ObservableList<BestelLijn> bestelLijnArray;
     private String allBeleg;
+    Button btBestel = new Button();
 
     ArrayList<BestelLijn> bestelLijnArrayList = new ArrayList<>();
 
@@ -94,7 +95,7 @@ public class OrderViewPane extends GridPane {
         p2.getChildren().addAll(type2, btBelegToevoegen);
 
         Label type3 = new Label("Bestelling voltooid?");
-        Button btBestel = new Button();
+
         btBestel.setText("Bestelling Plaatsen");
         p2.getChildren().addAll(type3, btBestel);
 

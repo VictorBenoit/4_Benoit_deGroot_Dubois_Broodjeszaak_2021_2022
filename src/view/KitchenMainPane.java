@@ -9,7 +9,8 @@ import view.panels.KitchenViewPane;
 import view.panels.OrderViewPane;
 
 public class KitchenMainPane extends BorderPane {
-    public KitchenMainPane(KitchenViewController kitchenViewController) {
+    public KitchenMainPane() {
+        KitchenViewController kitchenViewController = new KitchenViewController();
         TabPane tabPane = new TabPane();
 
         KitchenViewPane kitchenViewPane = new KitchenViewPane(kitchenViewController );
