@@ -15,7 +15,7 @@ public class InBestelling extends BestellingState {
         bestelLijnArray.add(bestelLijn);
     }
 
-    public ArrayList<BestelLijn> getBestelLijnArray() {
-        return bestelLijnArray;
-    }
+        public ArrayList<BestelLijn> getBestelLijnArray() {
+            return bestelLijnArray;
+        }
 }
