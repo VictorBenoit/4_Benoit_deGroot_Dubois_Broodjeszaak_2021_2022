@@ -8,7 +8,7 @@ import domain.model.StatePattern.BestellingState;
 import java.util.ArrayList;
 
 public class InWacht extends BestellingState {
-    public void voegBestelLijnToe(String naamBroodje, String naamBeleg) {
+    public void voegBestelLijnToe(String naamBroodje, String naamBelegen) {
         System.out.println("Bestelling staat in wacht! Probeer later opnieuw.");
     }
 

@@ -27,6 +27,7 @@ public class OrderViewPane extends GridPane {
     private BelegDatabase belegDatabase;
     private TableView<BestelLijn> table2;
     private ObservableList<BestelLijn> bestelLijnArray;
+    private String allBeleg;
 
     ArrayList<BestelLijn> bestelLijnArrayList = new ArrayList<>();
 
@@ -35,6 +36,7 @@ public class OrderViewPane extends GridPane {
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
+        allBeleg = "";
 
         // Broodje
         VBox p3 = new VBox(8);
@@ -102,17 +104,19 @@ public class OrderViewPane extends GridPane {
                 String selectieBroodje = chbx.getSelectionModel().getSelectedItem();
                 System.out.println(selectieBroodje);
                 String selectieBeleg = (table1.getSelectionModel().getSelectedItem().getName());
-                System.out.println(selectieBeleg);
-                bestelViewController.voegBestelLijnToe(selectieBroodje, selectieBeleg);
+                bestelViewController.voegBestelLijnToe(selectieBroodje, allBeleg);
 
-                bestelLijnArrayList = bestelViewController.getLijstBestlLijnen();
+                bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
                 updateLijnen(bestelLijnArrayList);
-                for(BestelLijn bestelLijn: bestelLijnArrayList) {
-                    String broodje = bestelLijn.getNaamBroodje();
-                    System.out.println(broodje);
-                    String beleg = bestelLijn.getNaamBeleg();
-                    System.out.println(beleg);
-                }
+
+                allBeleg = "";
+            }
+        });
+
+        btBelegToevoegen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                allBeleg += table1.getSelectionModel().getSelectedItem().getName() + " ";
             }
         });
 
@@ -121,7 +125,6 @@ public class OrderViewPane extends GridPane {
         this.add(p2, 0, 2);
 
         // Moet waarde beleg zijn.
-
 
         //plus.setOnAction(e -> countUp());
         //min.setOnAction(e -> countDown());
@@ -137,7 +140,7 @@ public class OrderViewPane extends GridPane {
         colName1.setCellValueFactory(new PropertyValueFactory<BestelLijn, String>("naamBroodje"));
         TableColumn<BestelLijn, String> colName2 = new TableColumn<>("Besteld beleg");
         colName2.setMinWidth(150);
-        colName2.setCellValueFactory(new PropertyValueFactory<BestelLijn, String>("naamBeleg"));
+        colName2.setCellValueFactory(new PropertyValueFactory<BestelLijn, String>("naamBelegen"));
         table2.getColumns().addAll(colName1, colName2);
 
         this.add(label1, 1, 0);
@@ -155,7 +158,6 @@ public class OrderViewPane extends GridPane {
         table2.setItems(bestelLijnArray);
         table2.refresh();
     }
-
 
     public void setLabel(String s) {
     }

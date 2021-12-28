@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface Subject {
 
-    public void voegBestelLijnToe(String naamBroodje, String naamBeleg);
+    public void voegBestelLijnToe(String naamBroodje, String naamBelegen);
     public ArrayList<BestelLijn> getLijstBestelLijnen();
     public Map getVoorraadLijstBroodjes();
     public Map getVoorraadLijstBeleg();

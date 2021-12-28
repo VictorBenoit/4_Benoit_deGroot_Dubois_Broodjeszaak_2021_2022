@@ -10,8 +10,8 @@ public class InBestelling extends BestellingState {
 
     ArrayList<BestelLijn> bestelLijnArray = new ArrayList<>();
 
-    public void voegBestelLijnToe(String naamBroodje, String naamBeleg) {
-        BestelLijn bestelLijn = new BestelLijn(naamBroodje, naamBeleg);
+    public void voegBestelLijnToe(String naamBroodje, String naamBelegen) {
+        BestelLijn bestelLijn = new BestelLijn(naamBroodje, naamBelegen);
         bestelLijnArray.add(bestelLijn);
     }
 

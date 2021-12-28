@@ -19,7 +19,7 @@ public class Bestelling {
         return bestelLijnArrayList;
     }
 
-    public void voegBestelLijnToe(String naamBroodje, String naamBeleg) {
-        state.voegBestelLijnToe(naamBroodje, naamBeleg);
+    public void voegBestelLijnToe(String naamBroodje, String naamBelegen) {
+        state.voegBestelLijnToe(naamBroodje, naamBelegen);
     }
 }

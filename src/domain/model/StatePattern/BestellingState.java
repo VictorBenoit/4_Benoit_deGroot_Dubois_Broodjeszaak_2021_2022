@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public abstract class BestellingState {
 
-    public void voegBestelLijnToe(String naamBroodje, String naamBeleg) {
+    public void voegBestelLijnToe(String naamBroodje, String naamBelegen) {
 
     }
 
