@@ -2,12 +2,13 @@ package view.panels;
 
 import controller.BestelViewController;
 import domain.model.Beleg;
-import domain.model.Broodje;
-import domain.Broodjeszaak;
+import domain.model.BestelLijn;
 import domain.model.database.BelegDatabase;
 import domain.model.database.BroodjesDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -16,22 +17,26 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
-import java.util.StringJoiner;
 
 public class OrderViewPane extends GridPane {
 
     private BestelViewController bestelViewController;
-    private ArrayList<Beleg> belegName;
     private ObservableList<Beleg> beleggen;
-    private TableView<Beleg> table;
+    private TableView<Beleg> table1;
     private BroodjesDatabase broodjesDatabase;
     private BelegDatabase belegDatabase;
+    private TableView<BestelLijn> table2;
+    private ObservableList<BestelLijn> bestelLijnArray;
+    private String allBeleg;
+
+    ArrayList<BestelLijn> bestelLijnArrayList = new ArrayList<>();
 
     public OrderViewPane(BestelViewController bestelViewController) {
         this.bestelViewController = bestelViewController;
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
+        allBeleg = "";
 
         // Broodje
         VBox p3 = new VBox(8);
@@ -50,52 +55,109 @@ public class OrderViewPane extends GridPane {
         ChoiceBox<String> chbx = new ChoiceBox<>();
         chbx.setItems(observableList);
         chbx.getItems();
+
         p3.getChildren().addAll(type1, chbx);
         this.add(p3, 0, 0);
 
-        //beleg
+        // Beleg
         VBox p2 = new VBox(8);
-        p2.setAlignment(Pos.CENTER_LEFT);
+        p2.setAlignment(Pos.CENTER);
         p3.setPadding(new Insets(0));
         p3.setBackground(
                 new Background(
                         new BackgroundFill(Color.WHITE,
                                 new CornerRadii(20), new Insets(0))));
-        Label type2 = new Label("Selecteer beleg:");
-        ArrayList<Beleg> beleg = belegDatabase.getBeleggenArrayList();
 
-        table = new TableView<>();
+        /*ArrayList<Beleg> beleg = belegDatabase.getBeleggenArrayList();*/
+
+        table1 = new TableView<>();
         refresh1();
-        StringJoiner joiner = new StringJoiner(System.lineSeparator());
-        ArrayList<String> belegName = belegDatabase.getKeyBeleg();
+        /*StringJoiner joiner = new StringJoiner(System.lineSeparator());
+        ArrayList<String> belegName = belegDatabase.getKeyBeleg();*/
 
         TableColumn<Beleg, String> colName1 = new TableColumn<Beleg, String>("Beleg");
-        colName1.setMinWidth(100);
-        colName1.setCellValueFactory(new PropertyValueFactory<Beleg, String>("name"));
-        table.getColumns().addAll(colName1);
-        this.add(table, 0, 1);
+        colName1.setMinWidth(300);
+        colName1.setCellValueFactory(new PropertyValueFactory<>("name"));
+        /*TableColumn<Beleg, Double> colPrice1 = new TableColumn<>("Prijs");
+        colPrice1.setMinWidth(100);
+        colPrice1.setCellValueFactory(new PropertyValueFactory<Beleg, Double>("price"));*/
 
-        Button bt = new Button();
-        bt.setText("+1");
-        p2.getChildren().addAll(type2, bt);
-        this.add(p2, 0, 4);
+        table1.getColumns().addAll(colName1);
+        this.add(table1, 0, 1);
+
+        /*String selectieBeleg = String.valueOf(table1.getSelectionModel().getSelectedItem());
+        System.out.println(selectieBeleg);*/
+
+        Label type2 = new Label("Selecteer beleg:");
+        Button btBelegToevoegen = new Button();
+        btBelegToevoegen.setText("+1");
+        p2.getChildren().addAll(type2, btBelegToevoegen);
+
+        Label type3 = new Label("Bestelling voltooid?");
+        Button btBestel = new Button();
+        btBestel.setText("Bestelling Plaatsen");
+        p2.getChildren().addAll(type3, btBestel);
+
+        btBestel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String selectieBroodje = chbx.getSelectionModel().getSelectedItem();
+                System.out.println(selectieBroodje);
+                String selectieBeleg = (table1.getSelectionModel().getSelectedItem().getName());
+                bestelViewController.voegBestelLijnToe(selectieBroodje, allBeleg);
+
+                bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
+                updateLijnen(bestelLijnArrayList);
+
+                allBeleg = "";
+            }
+        });
+
+        btBelegToevoegen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                allBeleg += table1.getSelectionModel().getSelectedItem().getName() + " ";
+            }
+        });
+
+        /*btBestel.setOnAction(actionEvent -> bestelViewController.voegBestelLijnToe(selectieBroodje, selectieBeleg));*/
+
+        this.add(p2, 0, 2);
 
         // Moet waarde beleg zijn.
-
 
         //plus.setOnAction(e -> countUp());
         //min.setOnAction(e -> countDown());
 
+    }
 
+    public void updateLijnen(ArrayList<BestelLijn> bestelLijnArrayList1) {
+        Label label1 = new Label("Bestel lijnen");
+        table2 = new TableView<>();
+        refresh2(bestelLijnArrayList1);
+        TableColumn<BestelLijn, String> colName1 = new TableColumn<>("Besteld broodje");
+        colName1.setMinWidth(150);
+        colName1.setCellValueFactory(new PropertyValueFactory<BestelLijn, String>("naamBroodje"));
+        TableColumn<BestelLijn, String> colName2 = new TableColumn<>("Besteld beleg");
+        colName2.setMinWidth(150);
+        colName2.setCellValueFactory(new PropertyValueFactory<BestelLijn, String>("naamBelegen"));
+        table2.getColumns().addAll(colName1, colName2);
 
+        this.add(label1, 1, 0);
+        this.add(table2, 1, 1);
     }
 
     public void refresh1() {
         beleggen = FXCollections.observableArrayList(belegDatabase.getBeleggenArrayList());
-        table.setItems(beleggen);
-        table.refresh();
+        table1.setItems(beleggen);
+        table1.refresh();
     }
 
+    public void refresh2(ArrayList<BestelLijn> bestelLijnArrayList2) {
+        bestelLijnArray = FXCollections.observableArrayList(bestelLijnArrayList2);
+        table2.setItems(bestelLijnArray);
+        table2.refresh();
+    }
 
     public void setLabel(String s) {
     }

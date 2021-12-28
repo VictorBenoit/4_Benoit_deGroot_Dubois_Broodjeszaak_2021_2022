@@ -19,12 +19,12 @@ public class BestelViewController implements Observer {
         bestelFacade.addObserver(this);
     }
 
-    public void voegBestelLijnToe(String naamBroodje, String naamBeleg) {
-        bestelFacade.voegBestelLijnToe(naamBroodje, naamBeleg);
+    public void voegBestelLijnToe(String naamBroodje, String naamBelegen) {
+        bestelFacade.voegBestelLijnToe(naamBroodje, naamBelegen);
     }
 
-    public ArrayList<BestelLijn> getLijstBestlLijnen() {
-        return bestelFacade.getLijstBestelLijnen();
+    public ArrayList<BestelLijn> getLijstBestelLijnen() {
+        return bestelLijnArray;
     }
 
     public Map getVoorraadLijstBroodjes() {
