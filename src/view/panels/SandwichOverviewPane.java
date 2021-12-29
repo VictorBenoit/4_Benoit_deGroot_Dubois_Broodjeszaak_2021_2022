@@ -7,7 +7,10 @@ import domain.model.database.BelegDatabase;
 import domain.model.database.BroodjesDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,60 +28,75 @@ public class SandwichOverviewPane extends GridPane {
 
 
 	public SandwichOverviewPane() {
-		broodjesDatabase = new BroodjesDatabase("BROODJEEXCEL");
-		belegDatabase = new BelegDatabase("BELEGEXCEL");
-		this.setPadding(new Insets(5, 5, 5, 5));
-		this.setVgap(5);
-		this.setHgap(5);
-
-		//Brinio 2-12: tabel opgesteld voor de broodjes en de gegevens die in de arraylist broodjes zijn toegevoegd bij de klasse "Broodjeszaak" ingevuld in de tabel, grotendeels overgenomen van het voorbeeld Tableview_JavaFX_Movies
-
-		Label label1 = new Label("Broodjes");
-		table1 = new TableView<Broodje>();
-		refresh1();
-		TableColumn<Broodje, String> colName1 = new TableColumn<Broodje, String>("Naam broodje:");
-		colName1.setMinWidth(150);
-		colName1.setCellValueFactory(new PropertyValueFactory<Broodje, String>("name"));
-		TableColumn<Broodje, Double> colPrice1 = new TableColumn<Broodje, Double>("Prijs:");
-		colPrice1.setMinWidth(100);
-		colPrice1.setCellValueFactory(new PropertyValueFactory<Broodje, Double>("price"));
-		TableColumn<Broodje, Integer> colAmount1 = new TableColumn<Broodje, Integer>("Hoeveelheid in stock:");
-		colAmount1.setMinWidth(200);
-		colAmount1.setCellValueFactory(new PropertyValueFactory<Broodje, Integer>("amount"));
-		TableColumn<Broodje, Integer> colSales1 = new TableColumn<Broodje, Integer>("Verkoopcijfer:");
-		colSales1.setMinWidth(150);
-		colSales1.setCellValueFactory(new PropertyValueFactory<Broodje, Integer>("sales"));
-		table1.getColumns().addAll(colName1, colPrice1, colAmount1, colSales1);
-
-		//Brinio 2-12: tabel opgesteld voor beleggen, hetzelfde eig als bij broodjes
-
-		Label label2 = new Label("Beleggen");
-		table2 = new TableView<Beleg>();
-		refresh2();
-		TableColumn<Beleg, String> colName2 = new TableColumn<Beleg, String>("Naam beleg:");
-		colName2.setMinWidth(150);
-		colName2.setCellValueFactory(new PropertyValueFactory<Beleg, String>("name"));
-		TableColumn<Beleg, Double> colPrice2 = new TableColumn<Beleg, Double>("Prijs:");
-		colPrice2.setMinWidth(100);
-		colPrice2.setCellValueFactory(new PropertyValueFactory<Beleg, Double>("price"));
-		TableColumn<Beleg, Integer> colAmount2 = new TableColumn<Beleg, Integer>("Hoeveelheid in stock:");
-		colAmount2.setMinWidth(200);
-		colAmount2.setCellValueFactory(new PropertyValueFactory<Beleg, Integer>("amount"));
-		TableColumn<Beleg, Integer> colSales = new TableColumn<Beleg, Integer>("Verkoopcijfer:");
-		colSales.setMinWidth(150);
-		colSales.setCellValueFactory(new PropertyValueFactory<Beleg, Integer>("sales"));
-		table2.getColumns().addAll(colName2, colPrice2, colAmount2, colSales);
-
-		//Brinio 2-12: hier wordt alles aan de tabel toegevoegd met nummers van een grid
-
-		this.add(label1, 0, 0);
-		this.add(table1, 0, 1);
-		this.add(label2, 0, 2);
-		this.add(table2, 0, 3);
-
+		updateOverview();
 	}
 
-	//Brinio 2-12: refresh codes om de Arraylisten in te vullen in de tabellen
+		public void updateOverview() {
+
+			broodjesDatabase = new BroodjesDatabase("BROODJEEXCEL");
+			belegDatabase = new BelegDatabase("BELEGEXCEL");
+			this.setPadding(new Insets(5, 5, 5, 5));
+			this.setVgap(5);
+			this.setHgap(5);
+
+			//Brinio 2-12: tabel opgesteld voor de broodjes en de gegevens die in de arraylist broodjes zijn toegevoegd bij de klasse "Broodjeszaak" ingevuld in de tabel, grotendeels overgenomen van het voorbeeld Tableview_JavaFX_Movies
+
+			Label label1 = new Label("Broodjes");
+			table1 = new TableView<Broodje>();
+			refresh1();
+			TableColumn<Broodje, String> colName1 = new TableColumn<Broodje, String>("Naam broodje:");
+			colName1.setMinWidth(150);
+			colName1.setCellValueFactory(new PropertyValueFactory<Broodje, String>("name"));
+			TableColumn<Broodje, Double> colPrice1 = new TableColumn<Broodje, Double>("Prijs:");
+			colPrice1.setMinWidth(100);
+			colPrice1.setCellValueFactory(new PropertyValueFactory<Broodje, Double>("price"));
+			TableColumn<Broodje, Integer> colAmount1 = new TableColumn<Broodje, Integer>("Hoeveelheid in stock:");
+			colAmount1.setMinWidth(200);
+			colAmount1.setCellValueFactory(new PropertyValueFactory<Broodje, Integer>("amount"));
+			TableColumn<Broodje, Integer> colSales1 = new TableColumn<Broodje, Integer>("Verkoopcijfer:");
+			colSales1.setMinWidth(150);
+			colSales1.setCellValueFactory(new PropertyValueFactory<Broodje, Integer>("sales"));
+			table1.getColumns().addAll(colName1, colPrice1, colAmount1, colSales1);
+
+			//Brinio 2-12: tabel opgesteld voor beleggen, hetzelfde eig als bij broodjes
+
+			Label label2 = new Label("Beleggen");
+			table2 = new TableView<Beleg>();
+			refresh2();
+			TableColumn<Beleg, String> colName2 = new TableColumn<Beleg, String>("Naam beleg:");
+			colName2.setMinWidth(150);
+			colName2.setCellValueFactory(new PropertyValueFactory<Beleg, String>("name"));
+			TableColumn<Beleg, Double> colPrice2 = new TableColumn<Beleg, Double>("Prijs:");
+			colPrice2.setMinWidth(100);
+			colPrice2.setCellValueFactory(new PropertyValueFactory<Beleg, Double>("price"));
+			TableColumn<Beleg, Integer> colAmount2 = new TableColumn<Beleg, Integer>("Hoeveelheid in stock:");
+			colAmount2.setMinWidth(200);
+			colAmount2.setCellValueFactory(new PropertyValueFactory<Beleg, Integer>("amount"));
+			TableColumn<Beleg, Integer> colSales = new TableColumn<Beleg, Integer>("Verkoopcijfer:");
+			colSales.setMinWidth(150);
+			colSales.setCellValueFactory(new PropertyValueFactory<Beleg, Integer>("sales"));
+			table2.getColumns().addAll(colName2, colPrice2, colAmount2, colSales);
+
+			Label type = new Label("Update overview");
+			Button btUpdate = new Button();
+			btUpdate.setText("update");
+
+			this.add(label1, 0, 0);
+			this.add(table1, 0, 1);
+			this.add(label2, 0, 2);
+			this.add(table2, 0, 3);
+			this.add(type, 0, 4);
+			this.add(btUpdate, 0, 5);
+
+			btUpdate.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					updateOverview();
+				}
+			});
+		}
+
+
 
 	public void refresh1() {
 		broodjes = FXCollections.observableArrayList(broodjesDatabase.getBroodjesArrayList());

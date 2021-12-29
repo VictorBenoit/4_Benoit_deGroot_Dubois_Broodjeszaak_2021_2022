@@ -3,7 +3,7 @@ package domain.model.database.loadSaveStrategies.factory;
 public enum LoadSaveStrategyEnum {
 
     BROODJETEKST("BroodjesTekstLoadSaveStrategy"),
-    BROODJEEXCEL("BroodjesTekstLoadSaveStrategy"),
+    BROODJEEXCEL("BroodjesExcelLoadSaveStrategy"),
     BELEGTEKST("BelegTekstLoadSaveStrategy"),
     BELEGEXCEL("BelegExcelLoadSaveStrategy");
 
