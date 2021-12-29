@@ -11,6 +11,10 @@ public class CountController implements CountObserver {
         this.model = model;
         model.addObserver(this);
     }
+
+    public CountController() {
+    }
+
     // Methods called by the view
     public void setView(OrderViewPane view) {
         this.view = view;
