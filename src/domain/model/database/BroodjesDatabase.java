@@ -75,23 +75,6 @@ public class BroodjesDatabase {
         Broodje broodje2 = new Broodje(name, price, amountBroodje, sales);
         broodjesMap.put(naamBroodje, broodje2);
 
-        /*Map<String, Broodje> updateMap = new HashMap<>();
-        Set<String> keySet = broodjesMap.keySet();
-        ArrayList<String> listOfKeys = new ArrayList<String>(keySet);
-        Collection<Broodje> values = broodjesMap.values();
-        ArrayList<Broodje> listOfValues = new ArrayList<Broodje>(values);
-
-        for (String key: keySet) {
-            for (Broodje broodje: listOfValues) {
-                String name = broodje.getName();
-                Double price = broodje.getPrice();
-                int amount = broodje.getAmount();
-                int sales = broodje.getSales();
-                broodje1 = new Broodje(name, price, amount, sales);
-            }
-            updateMap.put(key, broodje1);
-            broodjesMap = updateMap;
-        }*/
     }
 
     public void saveDatabase() {

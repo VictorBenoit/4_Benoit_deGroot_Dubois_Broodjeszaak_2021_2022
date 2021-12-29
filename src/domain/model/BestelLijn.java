@@ -13,21 +13,22 @@ public class BestelLijn {
         this.naamBroodje = naamBroodje;
         this.naamBelegen = naamBelegen;
         broodjesDatabase = new BroodjesDatabase("BROODJEEXCEL");
-        /*belegDatabase = new BelegDatabase("BELEGEXCEL");*/
+        belegDatabase = new BelegDatabase("BELEGEXCEL");
 
         Broodje broodje = broodjesDatabase.getBroodje(naamBroodje);
         broodje.aanPassenVoorraad();
-        int amount = broodje.getAmount();
-        broodjesDatabase.updateDatabase(naamBroodje, amount);
+        int amountBroodje = broodje.getAmount();
+        broodjesDatabase.updateDatabase(naamBroodje, amountBroodje);
         broodjesDatabase.saveDatabase();
 
-        /*String[] belegAppart = naamBelegen.split(" ");
+        String[] belegAppart = naamBelegen.split(" ");
         for (String naamBeleg: belegAppart) {
             Beleg beleg = belegDatabase.getBeleg(naamBeleg);
             beleg.aanPassenVoorraad();
-            belegDatabase.updateDatabase();
+            int amountBeleg = beleg.getAmount();
+            belegDatabase.updateDatabase(naamBeleg, amountBeleg);
             belegDatabase.saveDatabase();
-        }*/
+        }
     }
 
     public String getNaamBroodje() {

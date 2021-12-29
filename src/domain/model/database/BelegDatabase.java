@@ -64,24 +64,14 @@ public class BelegDatabase {
         return voorraadMap;
     }
 
-    public void updateDatabase() {
-        Map<String, Beleg> updateMap = new HashMap<>();
-        Set<String> keySet = belegMap.keySet();
-        ArrayList<String> listOfKeys = new ArrayList<String>(keySet);
-        Collection<Beleg> values = belegMap.values();
-        ArrayList<Beleg> listOfValues = new ArrayList<Beleg>(values);
+    public void updateDatabase(String naamBeleg, int amountBeleg) {
 
-        for (String key: keySet) {
-            for (Beleg beleg: listOfValues) {
-                String name = beleg.getName();
-                Double price = beleg.getPrice();
-                int amount = beleg.getAmount();
-                int sales = beleg.getSales();
-                beleg1 = new Beleg(name, price, amount, sales);
-            }
-            updateMap.put(key, beleg1);
-            belegMap = updateMap;
-        }
+        Beleg beleg1 = getBeleg(naamBeleg);
+        String name = beleg1.getName();
+        Double price = beleg1.getPrice();
+        int sales = beleg1.getSales();
+        Beleg beleg2 = new Beleg(name, price, amountBeleg, sales);
+        belegMap.put(naamBeleg, beleg2);
     }
 
     public void saveDatabase() {
