@@ -64,13 +64,12 @@ public class BelegDatabase {
         return voorraadMap;
     }
 
-    public void updateDatabase(String naamBeleg, int amountBeleg) {
+    public void updateDatabase(String naamBeleg, int amountBeleg, int salesBeleg) {
 
         Beleg beleg1 = getBeleg(naamBeleg);
         String name = beleg1.getName();
         Double price = beleg1.getPrice();
-        int sales = beleg1.getSales();
-        Beleg beleg2 = new Beleg(name, price, amountBeleg, sales);
+        Beleg beleg2 = new Beleg(name, price, amountBeleg, salesBeleg);
         belegMap.put(naamBeleg, beleg2);
     }
 

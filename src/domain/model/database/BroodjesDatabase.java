@@ -66,13 +66,12 @@ public class BroodjesDatabase {
         return voorraadMap;
     }
 
-    public void updateDatabase(String naamBroodje, int amountBroodje) {
+    public void updateDatabase(String naamBroodje, int amountBroodje, int salesBroodje) {
 
         Broodje broodje1 = getBroodje(naamBroodje);
         String name = broodje1.getName();
         Double price = broodje1.getPrice();
-        int sales = broodje1.getSales();
-        Broodje broodje2 = new Broodje(name, price, amountBroodje, sales);
+        Broodje broodje2 = new Broodje(name, price, amountBroodje, salesBroodje);
         broodjesMap.put(naamBroodje, broodje2);
 
     }

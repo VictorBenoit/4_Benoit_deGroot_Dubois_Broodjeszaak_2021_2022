@@ -23,6 +23,10 @@ public class Broodje {
         amount--;
     }
 
+    public void aanPassenVerkoop() {
+        sales++;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

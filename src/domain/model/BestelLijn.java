@@ -2,33 +2,59 @@ package domain.model;
 
 import domain.model.database.BelegDatabase;
 import domain.model.database.BroodjesDatabase;
+import javafx.scene.control.Alert;
 
 public class BestelLijn {
+
     private String naamBroodje;
     private String naamBelegen;
     private BroodjesDatabase broodjesDatabase;
     private BelegDatabase belegDatabase;
 
     public BestelLijn(String naamBroodje, String naamBelegen) {
-        this.naamBroodje = naamBroodje;
-        this.naamBelegen = naamBelegen;
+
         broodjesDatabase = new BroodjesDatabase("BROODJEEXCEL");
         belegDatabase = new BelegDatabase("BELEGEXCEL");
-
         Broodje broodje = broodjesDatabase.getBroodje(naamBroodje);
-        broodje.aanPassenVoorraad();
-        int amountBroodje = broodje.getAmount();
-        broodjesDatabase.updateDatabase(naamBroodje, amountBroodje);
-        broodjesDatabase.saveDatabase();
-
-        String[] belegAppart = naamBelegen.split(" ");
-        for (String naamBeleg: belegAppart) {
-            Beleg beleg = belegDatabase.getBeleg(naamBeleg);
-            beleg.aanPassenVoorraad();
-            int amountBeleg = beleg.getAmount();
-            belegDatabase.updateDatabase(naamBeleg, amountBeleg);
-            belegDatabase.saveDatabase();
+        int currentAmountBroodje = broodje.getAmount();
+        if (currentAmountBroodje > 0) {
+            this.naamBroodje = naamBroodje;
+            broodje.aanPassenVoorraad();
+            broodje.aanPassenVerkoop();
+            int amountBroodje = broodje.getAmount();
+            int salesBroodje = broodje.getSales();
+            broodjesDatabase.updateDatabase(naamBroodje, amountBroodje, salesBroodje);
+            broodjesDatabase.saveDatabase();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error venster");
+            alert.setHeaderText(null);
+            alert.setContentText("Broodjes zijn op!");
+            alert.showAndWait();
+            return;
         }
+
+    String[] belegAppart = naamBelegen.split(" ");
+            for (String naamBeleg : belegAppart) {
+                Beleg beleg = belegDatabase.getBeleg(naamBeleg);
+                int currentAmount = beleg.getAmount();
+                if (currentAmount > 0) {
+                    this.naamBelegen = naamBelegen;
+                    beleg.aanPassenVoorraad();
+                    beleg.aanPassenVerkoop();
+                    int amountBeleg = beleg.getAmount();
+                    int salesBeleg = beleg.getSales();
+                    belegDatabase.updateDatabase(naamBeleg, amountBeleg, salesBeleg);
+                    belegDatabase.saveDatabase();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Error venster");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Beleg is op!");
+                    alert.showAndWait();
+                }
+
+            }
     }
 
     public String getNaamBroodje() {

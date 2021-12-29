@@ -111,12 +111,21 @@ public class OrderViewPane extends GridPane {
         btBestel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                try {
                     String selectieBroodje = chbx.getSelectionModel().getSelectedItem();
                     bestelViewController.voegBestelLijnToe(selectieBroodje, allBeleg);
                     bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
                     updateLijnen(bestelLijnArrayList);
 
                     allBeleg = "";
+                } catch (NullPointerException e) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Error venster");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Foute bestelling, kies ten minste 1 broodje en 1 beleg.");
+                    alert.showAndWait();
+                }
+
             }
         });
 
@@ -139,19 +148,45 @@ public class OrderViewPane extends GridPane {
         btIdentiek.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                bestelViewController.getIdentiekeLijn(bestelLijnArrayList);
-                bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
-                updateLijnen(bestelLijnArrayList);
-                allBeleg = "";
+                try {
+                    try {
+                        bestelViewController.getIdentiekeLijn(bestelLijnArrayList);
+                        bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
+                        updateLijnen(bestelLijnArrayList);
+                        allBeleg = "";
+                    } catch (NullPointerException e) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Error venster");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Actie kan niet uitgevoerd worden!");
+                        alert.showAndWait();
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Error venster");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Actie kan niet uitgevoerd worden!");
+                    alert.showAndWait();
+                }
             }
         });
 
         btVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                bestelViewController.verwijderen(bestelLijnArrayList);
-                bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
-                updateLijnen(bestelLijnArrayList);
+                try {
+                    bestelViewController.verwijderen(bestelLijnArrayList);
+                    bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
+                    updateLijnen(bestelLijnArrayList);
+
+                    allBeleg = "";
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Error venster");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Alles is al verwijderd.");
+                    alert.showAndWait();
+                }
             }
         });
 
@@ -161,6 +196,8 @@ public class OrderViewPane extends GridPane {
                 bestelViewController.allesVerwijderen();
                 bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
                 updateLijnen(bestelLijnArrayList);
+
+                allBeleg = "";
             }
         });
 

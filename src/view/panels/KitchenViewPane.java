@@ -56,7 +56,6 @@ public class KitchenViewPane extends GridPane {
         });
         p3.getChildren().addAll(label1, btn, label);
         this.add(p3, 0, 0);
-
     }
 
     public void counter() {
