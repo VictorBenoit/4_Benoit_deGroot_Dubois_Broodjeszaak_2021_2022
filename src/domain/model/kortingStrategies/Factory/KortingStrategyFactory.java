@@ -7,6 +7,7 @@ import domain.model.kortingStrategies.KortingVan10;
 
 public class KortingStrategyFactory {
     public static KortingStrategy createDiscount(String kortingtype) {
+        KortingStrategyEnum kortingStrategyEnum;
         KortingStrategy korting;
         if (kortingtype == null) {
             return null;

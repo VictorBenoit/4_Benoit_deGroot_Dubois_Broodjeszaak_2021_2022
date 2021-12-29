@@ -1,5 +1,6 @@
 package domain.model;
 
+import domain.CountObserver;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Map;
 
-public class BestelViewController implements Observer {
+public class BestelViewController extends CountController implements Observer {
 
     BestelFacade bestelFacade = new BestelFacade();
     ArrayList<BestelLijn> bestelLijnArray = new ArrayList<>();

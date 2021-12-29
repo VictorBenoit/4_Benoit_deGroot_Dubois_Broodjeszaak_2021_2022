@@ -1,8 +1,7 @@
 package controller;
 
 import domain.model.CountModel;
-import domain.model.CountObserver;
-import view.OrderView;
+import domain.CountObserver;
 import view.panels.OrderViewPane;
 
 public class CountController implements CountObserver {
