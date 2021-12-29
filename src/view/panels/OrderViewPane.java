@@ -7,6 +7,8 @@ import domain.model.Bestelling;
 import domain.model.database.BelegDatabase;
 import domain.model.database.BroodjesDatabase;
 import domain.model.kortingStrategies.Factory.KortingStrategyEnum;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,9 +36,9 @@ public class OrderViewPane extends GridPane {
     private double total;
     ArrayList<BestelLijn> bestelLijnArrayList = new ArrayList<>();
     private Label type9 = new Label();
-    private KortingStrategyEnum kortingStrategyEnum;
     ComboBox<String> comboBox = new ComboBox<>();
-    Bestelling bestelling;
+    Button button = new Button();
+    private final BooleanProperty finishOrderButtonEnabledProperty = new SimpleBooleanProperty(false);
 
     public OrderViewPane(BestelViewController bestelViewController) {
         this.bestelViewController = bestelViewController;
@@ -81,7 +83,6 @@ public class OrderViewPane extends GridPane {
         TableColumn<Beleg, String> colName1 = new TableColumn<Beleg, String>("Beleg");
         colName1.setMinWidth(300);
         colName1.setCellValueFactory(new PropertyValueFactory<>("name"));
-
         table1.getColumns().addAll(colName1);
         this.add(table1, 0, 1);
 
@@ -122,19 +123,44 @@ public class OrderViewPane extends GridPane {
         comboBox.getItems().add("Gratis korting voor goedkoopste broodje");
         p4.getChildren().addAll(type8, comboBox);
 
-        Label type7 = new Label("Bestelling afsluiten");
+        Label type7 = new Label("Bestelling berekenen");
         Button btAfsluiten = new Button();
-        btAfsluiten.setText("Afsluiten");
+        btAfsluiten.setText("Bereken");
         p4.getChildren().addAll(type7, btAfsluiten);
 
+        button.setText("Betalen");
+        button.setDisable(true);
         type9.setText("Prijs: " + total);
-        p4.getChildren().addAll(type9);
+        p4.getChildren().addAll(type9, button);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                total = 0;
+                button.setDisable(true);
+                btBelegToevoegen.setDisable(false);
+                btVerwijderen.setDisable(false);
+                comboBox.setDisable(false);
+                btIdentiek.setDisable(false);
+                btBestel.setDisable(false);
+                chbx.setDisable(false);
+                table1.setDisable(false);
+                table2.setDisable(false);
+            }
+        });
         btAfsluiten.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
             try {
 
-
+                    button.setDisable(false);
+                    btBelegToevoegen.setDisable(true);
+                    btVerwijderen.setDisable(true);
+                    comboBox.setDisable(true);
+                    btIdentiek.setDisable(true);
+                    btBestel.setDisable(true);
+                    chbx.setDisable(true);
+                    table1.setDisable(true);
+                    table2.setDisable(true);
                    bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
                     String test = comboBox.getSelectionModel().getSelectedItem();
 
@@ -230,6 +256,7 @@ public class OrderViewPane extends GridPane {
             @Override
             public void handle(ActionEvent event) {
                 try {
+
                     bestelViewController.verwijderen(bestelLijnArrayList);
                     bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
                     updateLijnen(bestelLijnArrayList);
@@ -248,6 +275,16 @@ public class OrderViewPane extends GridPane {
         btAllesVerwijderen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                total = 0;
+                button.setDisable(true);
+                btBelegToevoegen.setDisable(false);
+                btVerwijderen.setDisable(false);
+                comboBox.setDisable(false);
+                btIdentiek.setDisable(false);
+                btBestel.setDisable(false);
+                chbx.setDisable(false);
+                table1.setDisable(false);
+                table2.setDisable(false);
                 bestelViewController.allesVerwijderen();
                 bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
                 updateLijnen(bestelLijnArrayList);
