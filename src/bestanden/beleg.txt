@@ -1,8 +1,8 @@
-hesp,0.45,5,0
-kaas,0.40,5,0
-sla,0.20,10,0
-tomaat,0.35,10,0
-feta,0.50,10,0
-komkommer,0.30,10,0
-olijven,0.25,10,0
-
+hesp,0.45,23,0
+kaas,0.40,23,0
+sla,0.20,23,0
+tomaat,0.35,23,0
+feta,0.50,23,0
+komkommer,0.30,23,0
+olijven,0.25,23,0
+water,0.23,2,1

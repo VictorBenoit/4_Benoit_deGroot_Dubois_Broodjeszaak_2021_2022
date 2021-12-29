@@ -8,7 +8,7 @@ public class GeenKorting implements KortingStrategy{
     }
 
     @Override
-    public double calculateTotalReduction(int amount) {
+    public double calculateTotalReduction(double amount) {
         return amount;
     }
 }

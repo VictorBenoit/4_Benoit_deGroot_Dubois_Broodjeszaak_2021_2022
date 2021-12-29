@@ -1,12 +1,12 @@
 package domain.model.kortingStrategies.Factory;
 
 public enum KortingStrategyEnum {
-    GEENKORTING("geenkorting", "model.kortingStrategies.GeenKorting", 0),
+    GEENKORTING("geen korting", "model.kortingStrategies.GeenKorting", 0),
     KORTINGVAN10("10% korting", "model.kortingStrategies.KortingVan10", 0.1),
     GOEDKOOPSTEBROODJEGRATISKORTING("Gratis korting voor goedkoopste broodje", "model.kortingStrategies.GoedkoopsteBroodjeGratisKorting", 1);
 
-    private final String description;
-    private final String classname;
+    private String description;
+    private String classname;
     private double korting;
 
     KortingStrategyEnum(String description, String classname, double korting) {
@@ -30,4 +30,6 @@ public enum KortingStrategyEnum {
     public void setKorting(double korting) {
         this.korting = korting;
     }
+
+
 }

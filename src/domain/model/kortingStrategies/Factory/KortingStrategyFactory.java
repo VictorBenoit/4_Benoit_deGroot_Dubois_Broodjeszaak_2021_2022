@@ -1,19 +1,25 @@
 package domain.model.kortingStrategies.Factory;
 
+import domain.model.kortingStrategies.GeenKorting;
+import domain.model.kortingStrategies.GoedkoopsteBroodjeGratisKorting;
 import domain.model.kortingStrategies.KortingStrategy;
+import domain.model.kortingStrategies.KortingVan10;
 
 public class KortingStrategyFactory {
-    public static KortingStrategy createKortingStrategyBehaviour (String type){
-        KortingStrategyEnum kortingStrategyEnum = KortingStrategyEnum.valueOf(type);
-        String classname = kortingStrategyEnum.getClassname();
-        KortingStrategy kortingStrategy = null;
-        try {
-            Class behaviorClass = Class.forName(classname);
-            Object kortingStrat = behaviorClass.newInstance();
-            kortingStrategy = (KortingStrategy) kortingStrat;
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static KortingStrategy createDiscount(String kortingtype) {
+        KortingStrategy korting;
+        if (kortingtype == null) {
+            return null;
         }
-        return kortingStrategy;
+        if (kortingtype.equals("Gratis korting voor goedkoopste broodje")) {
+            return new GoedkoopsteBroodjeGratisKorting();
+        }
+        if (kortingtype.equals("geen korting")) {
+            return new GeenKorting();
+        }
+        if (kortingtype.equals("10% korting")) {
+            return new KortingVan10();
+        }
+        return null;
     }
 }

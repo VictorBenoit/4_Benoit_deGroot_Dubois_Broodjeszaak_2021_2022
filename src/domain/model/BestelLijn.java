@@ -2,6 +2,7 @@ package domain.model;
 
 import domain.model.database.BelegDatabase;
 import domain.model.database.BroodjesDatabase;
+import domain.model.kortingStrategies.Factory.KortingStrategyEnum;
 import javafx.scene.control.Alert;
 
 public class BestelLijn {
@@ -10,6 +11,7 @@ public class BestelLijn {
     private String naamBelegen;
     private BroodjesDatabase broodjesDatabase;
     private BelegDatabase belegDatabase;
+    double total = 0;
 
     public BestelLijn(String naamBroodje, String naamBelegen) {
 
@@ -55,6 +57,17 @@ public class BestelLijn {
                 }
 
             }
+    }
+
+    public double getAmountBestelling(){
+        total = broodjesDatabase.getBroodje(naamBroodje).getPrice();
+        for(int i = 0; i != belegDatabase.getBeleggenArrayList().size(); i++){
+            total += belegDatabase.getBeleggenArrayList().get(i).getPrice();
+
+        }
+
+        return total;
+
     }
 
     public String getNaamBroodje() {

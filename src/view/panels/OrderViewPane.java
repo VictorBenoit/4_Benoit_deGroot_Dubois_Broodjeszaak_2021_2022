@@ -3,8 +3,10 @@ package view.panels;
 import controller.BestelViewController;
 import domain.model.Beleg;
 import domain.model.BestelLijn;
+import domain.model.Bestelling;
 import domain.model.database.BelegDatabase;
 import domain.model.database.BroodjesDatabase;
+import domain.model.kortingStrategies.Factory.KortingStrategyEnum;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,8 +31,12 @@ public class OrderViewPane extends GridPane {
     private ObservableList<BestelLijn> bestelLijnArray;
     private String allBeleg;
     Button btBestel = new Button();
-
+    private double total;
     ArrayList<BestelLijn> bestelLijnArrayList = new ArrayList<>();
+    private Label type9 = new Label();
+    private KortingStrategyEnum kortingStrategyEnum;
+    ComboBox<String> comboBox = new ComboBox<>();
+    Bestelling bestelling;
 
     public OrderViewPane(BestelViewController bestelViewController) {
         this.bestelViewController = bestelViewController;
@@ -107,6 +113,55 @@ public class OrderViewPane extends GridPane {
         Button btAllesVerwijderen = new Button();
         btAllesVerwijderen.setText("Alles verwijderen");
         p4.getChildren().addAll(type6, btAllesVerwijderen);
+
+        Label type8 = new Label("Kies korting:");
+
+
+        comboBox.getItems().add("geen korting");
+        comboBox.getItems().add("10% korting");
+        comboBox.getItems().add("Gratis korting voor goedkoopste broodje");
+        p4.getChildren().addAll(type8, comboBox);
+
+        Label type7 = new Label("Bestelling afsluiten");
+        Button btAfsluiten = new Button();
+        btAfsluiten.setText("Afsluiten");
+        p4.getChildren().addAll(type7, btAfsluiten);
+
+        type9.setText("Prijs: " + total);
+        p4.getChildren().addAll(type9);
+        btAfsluiten.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            try {
+
+
+                   bestelLijnArrayList = bestelViewController.getLijstBestelLijnen();
+                    String test = comboBox.getSelectionModel().getSelectedItem();
+
+
+                System.out.println("dd: " +test);
+                                            for (BestelLijn b:bestelLijnArrayList
+                                            ) {
+                                                total += b.getAmountBestelling();
+
+                                            }
+                System.out.println(total);
+                //Geeft nullpointer om korting te berekenen
+                //  double krt = bestelling.getDiscountStrategy(test).calculateTotalReduction(total);
+
+                                            type9.setText("" + total );
+                System.out.println(type9);
+                                        }catch (NullPointerException e) {
+                                            Alert alert = new Alert(Alert.AlertType.WARNING);
+                                            alert.setTitle("Error venster");
+                                            alert.setHeaderText(null);
+                                            alert.setContentText("Fout in methode");
+                                            alert.showAndWait();
+                                        }
+
+                                }
+        });
+
 
         btBestel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -221,6 +276,7 @@ public class OrderViewPane extends GridPane {
         this.add(table2, 1, 1);
     }
 
+
     public void refresh1() {
         beleggen = FXCollections.observableArrayList(belegDatabase.getBeleggenArrayList());
         table1.setItems(beleggen);
@@ -235,4 +291,12 @@ public class OrderViewPane extends GridPane {
 
     public void setLabel(String s) {
     }
+
+    public String getSelectedDiscount() {
+        return comboBox.getSelectionModel().getSelectedItem();
+    }
+
+
+
+
 }

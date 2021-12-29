@@ -4,6 +4,7 @@ import domain.Observer;
 import domain.model.BestelFacade;
 import domain.model.BestelLijn;
 import domain.model.BestellingEvents;
+import view.panels.OrderViewPane;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -14,7 +15,7 @@ public class BestelViewController implements Observer {
     BestelFacade bestelFacade = new BestelFacade();
     ArrayList<BestelLijn> bestelLijnArray = new ArrayList<>();
     private static EnumSet<BestellingEvents> bestellingEventsEnumSet = EnumSet.of(BestellingEvents.TOEVOEGEN_BROODJE, BestellingEvents.TOEVOEGEN_BELEG);
-
+    OrderViewPane view;
     public BestelViewController() {
         bestelFacade.addObserver(this);
     }
@@ -59,5 +60,12 @@ public class BestelViewController implements Observer {
     public ArrayList<BestelLijn> update(ArrayList<BestelLijn> bestelLijn) {
         bestelLijnArray = bestelLijn;
         return bestelLijnArray;
+    }
+
+    public void handleEndOrderButtonClick() {
+        // TODO: Price updates should be a part of order state
+        view.getSelectedDiscount();
+
+
     }
 }
